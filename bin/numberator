@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require "numberator"
+
+def check_usage
+	n = ARGV.shift
+	ARGV.size == 0 && n =~ /\d+/ && (n = n.to_i) > 0 and return n
+	puts "Usage: <numberator> n"
+end
+
+def process(n)
+	np = Numberator::NumbersProvider.new(ARGF, 1000)
+	nl = Numberator::NumbersOrderedList.new(n)
+	np.each_number { |n| nl << n }
+	nl.each_number { |n| puts n }
+end
+
+n = check_usage and process(n)
