@@ -1,26 +1,35 @@
-require 'linked-list'
-
 class Numberator::NumbersOrderedList
 	def initialize(limit)
-		@list = LinkedList::List.new
 		@limit = limit
+		@list = []
 	end
 
 	def << (v)
-		@list.each_node do |node|
-			if v > node.data
-				@list.insert_before_node(v, node)
-				@list.size > @limit and @list.pop
-				v = nil
-				break
+		if @list.size == 0
+			@list.push(v) and return
+		end
+
+		return if (@list.size == @limit && v <= @list.first) ||
+			(v == @list.first || v == @list.last)
+
+		if v < @list.first || v > @list.last
+			if v < @list.first
+				@list.unshift(v)
+			else
+				@list.push(v)
+			end
+		else
+			@list.each_with_index do |x, i|
+				if x > v
+					@list.insert(i, v)
+					break
+				end
 			end
 		end
-		if (v && @list.size < @limit) || @list.size == 0
-			@list.push(v)
-		end
+		@list.shift if @list.size > @limit
 	end
 
 	def each_number(&block)
-		@list.each(&block)
+		@list.sort_by{|x| -x}.each(&block)
 	end
 end

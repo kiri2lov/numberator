@@ -8,10 +8,10 @@ class NumberatorTest < Minitest::Test
 
   def test_numbers_provider
     io = StringIO.new("das 1efa 21aa 10 zz;z; 777a")
-    np = Numberator::NumbersProvider.new(io, 2)
+    np = Numberator::NumbersProvider.new(io)
     nums = np.enum_for(:each_number).to_a
-    assert_equal(5, nums.size)
-    assert_equal("1 21 10 77 7", nums * " ")
+    assert_equal(4, nums.size)
+    assert_equal("1 21 10 777", nums * " ")
   end
 
   def test_numbers_ordered_list
