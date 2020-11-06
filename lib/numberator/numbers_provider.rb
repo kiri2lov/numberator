@@ -7,8 +7,6 @@ class Numberator::NumbersProvider
 	end
 
 	def each_number(&block)
-		#@io.binmode
-		#@io.scan("%d") {|s| puts s }
 		buf1 = String.new(capacity: @block_size)
 		buf2 = String.new(capacity: @limit)
 		rex = Regexp.new(/\d+/)
