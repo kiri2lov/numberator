@@ -1,10 +1,17 @@
-* How to install:
+# README
 
-$git clone git@github.com:kiri2lov/numberator.git  
-$gem build numberator.gemspec  
-$gem install numberator-0.1.0.gem  
+How to install:
 
-* How to use:
+```
+git clone git@github.com:kiri2lov/numberator.git
+cd numberator
+gem build numberator.gemspec
+gem install numberator-0.1.0.gem
+```
 
-$echo 'aa 23 a2 441' | numberator 2  
-cat filename | numberator 10  
+How to use:
+
+```
+echo 'aa 23 a2 441' | numberator 2
+head -c 50M < /dev/urandom | numberator 10
+```
