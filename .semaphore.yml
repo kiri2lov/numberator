@@ -14,5 +14,6 @@ blocks:
             - checkout
             - sem-version ruby 2.5.5
             - bundle
+            - rubocop
             - rake test
             - gem build numberator.gemspec
