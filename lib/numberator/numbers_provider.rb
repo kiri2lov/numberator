@@ -1,7 +1,6 @@
 class Numberator::NumbersProvider
 	def initialize(io, limit = 1000, block_size = 4096)
 		@io = io
-		@buf = String.new(capacity: limit + 4)
 		@block_size = block_size
 		@limit = limit
 	end
