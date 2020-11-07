@@ -1,19 +1,37 @@
 version: v1.0
-name: Initial Pipeline
+name: Numberator CI
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  prologue:
+    commands:
+      - checkout
+      - cache restore
+      - sem-version ruby 2.6.0
+      - bundle
 blocks:
-  - name: Checkout
+  - name: Setup
+    dependencies: []
     task:
       jobs:
-        - name: 'Job #1'
+        - name: bundle
           commands:
-            - checkout
-  - name: Run test
+            - cache store
+  - name: Test
+    dependencies:
+      - Setup
     task:
       jobs:
-        - name: 'Job #1'
+        - name: run test
           commands:
             - rake test
+  - name: Build
+    dependencies:
+      - Test
+    task:
+      jobs:
+        - name: gem build
+          commands:
+            - gem build numberator.gemspec
