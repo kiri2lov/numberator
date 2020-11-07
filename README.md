@@ -1,3 +1,5 @@
+[![Build Status](https://kiri2lov.semaphoreci.com/badges/numberator/branches/master.svg?style=shields)](https://kiri2lov.semaphoreci.com/projects/numberator)
+
 # README
 
 How to install:
