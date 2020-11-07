@@ -1,35 +1,37 @@
-class Numberator::NumbersOrderedList
-	def initialize(limit)
-		@limit = limit
-		@list = []
-	end
+# frozen_string_literal: true
 
-	def << (v)
-		if @list.size == 0
-			@list.push(v) and return
-		end
+module Numberator
+  class NumbersOrderedList
+    def initialize(limit)
+      @limit = limit
+      @list = []
+    end
 
-		return if (@list.size == @limit && v <= @list.first) ||
-			(v == @list.first || v == @list.last)
+    def <<(val)
+      @list.push(val) and return if @list.size.zero?
 
-		if v < @list.first || v > @list.last
-			if v < @list.first
-				@list.unshift(v)
-			else
-				@list.push(v)
-			end
-		else
-			@list.each_with_index do |x, i|
-				if x > v
-					@list.insert(i, v)
-					break
-				end
-			end
-		end
-		@list.shift if @list.size > @limit
-	end
+      return if (@list.size == @limit && val <= @list.first) ||
+                (val == @list.first || val == @list.last)
 
-	def each_number(&block)
-		@list.sort_by{|x| -x}.each(&block)
-	end
+      if val < @list.first || val > @list.last
+        if val < @list.first
+          @list.unshift(val)
+        else
+          @list.push(val)
+        end
+      else
+        @list.each_with_index do |x, i|
+          if x > val
+            @list.insert(i, val)
+            break
+          end
+        end
+      end
+      @list.shift if @list.size > @limit
+    end
+
+    def each_number(&block)
+      @list.sort_by(&:-@).each(&block)
+    end
+  end
 end
