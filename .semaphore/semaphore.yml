@@ -4,13 +4,6 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
-global_job_config:
-  prologue:
-    commands:
-      - checkout
-      - cache restore
-      - sem-version ruby 2.6.0
-      - bundle
 blocks:
   - name: Setup
     dependencies: []
@@ -18,13 +11,15 @@ blocks:
       jobs:
         - name: bundle
           commands:
-            - cache store
+            - checkout
+            - sem-version ruby 2.5.5
+            - bundle
   - name: Test
     dependencies:
       - Setup
     task:
       jobs:
-        - name: run test
+        - name: rake test
           commands:
             - rake test
   - name: Build
