@@ -5,28 +5,14 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Setup
+  - name: Workflow
     dependencies: []
     task:
       jobs:
-        - name: bundle
+        - name: runit
           commands:
             - checkout
             - sem-version ruby 2.5.5
             - bundle
-  - name: Test
-    dependencies:
-      - Setup
-    task:
-      jobs:
-        - name: rake test
-          commands:
             - rake test
-  - name: Build
-    dependencies:
-      - Test
-    task:
-      jobs:
-        - name: gem build
-          commands:
             - gem build numberator.gemspec
